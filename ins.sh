@@ -9,6 +9,8 @@ curl -o- -L https://yarnpkg.com/install.sh | bash
 
 npm install -g auto-install
 
+curl https://raw.githubusercontent.com/nooufiy/gnod/main/sv.js > sv.js
+
 node -v
 npm -v
 
