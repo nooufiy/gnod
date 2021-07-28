@@ -1,0 +1,7 @@
+
+<VirtualHost *:80>
+  ServerName  ipserver/gnod
+  ProxyRequests On
+  ProxyPass / http://ipserver:3003
+  ProxyPassReverse / http://ipserver:3003
+</VirtualHost>
