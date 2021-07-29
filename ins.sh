@@ -1,5 +1,9 @@
 #!/bin/bash
 
+#set webserver [apache || nginx]
+
+svt=$1                  # web server type (1 = apache | 2 = nginx)
+
 yum install -y gcc-c++ make 
 curl -sL https://rpm.nodesource.com/setup_14.x | sudo -E bash - 
 yum install nodejs -y
@@ -33,8 +37,6 @@ npm install pm2 -g
 pm2 start sv.js
 pm2 startup systemd
 pm2 save
-
-svt=$1                  # web server type (1 = apache | 2 = nginx)
 
 if [ "$svt" == 2 ]; then
   # Add Nginx
