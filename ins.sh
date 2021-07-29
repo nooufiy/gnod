@@ -26,6 +26,11 @@ sed -i 'TCP_IN = "20,21/TCP_IN = "20,21,3003/g' /etc/csf/csf.conf
 sed -i 'TCP_OUT = "20,21/TCP_IN = "20,21,3003/g' /etc/csf/csf.conf
 csf -r
 
+systemctl start csf
+systemctl start lfd
+systemctl enable csf
+systemctl enable lfd
+
 cd /home
 mkdir gnod
 cd gnod
