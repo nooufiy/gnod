@@ -58,8 +58,8 @@ elif [ "$svt" == 1 ]; then
   # Add Apache
   yum -y install httpd
   
-  LoadModule proxy_module modules/mod_proxy.so >> /etc/httpd/conf/httpd.conf
-  LoadModule proxy_http_module modules/mod_proxy_http.so >> /etc/httpd/conf/httpd.conf
+  # LoadModule proxy_module modules/mod_proxy.so >> /etc/httpd/conf/httpd.conf
+  # LoadModule proxy_http_module modules/mod_proxy_http.so >> /etc/httpd/conf/httpd.conf
   curl https://raw.githubusercontent.com/nooufiy/gnod/main/vhos.txt >> /etc/httpd/conf/httpd.conf
   sed -i "s/ipserver/$ip/g" /etc/httpd/conf/httpd.conf
   
@@ -67,6 +67,9 @@ elif [ "$svt" == 1 ]; then
   
   systemctl start httpd.service
   systemctl enable httpd.service
+  
+  setsebool -P httpd_can_network_relay on
+  setsebool -P httpd_can_network_connect on
 else
   echo "[webserver not installed]"
 fi
