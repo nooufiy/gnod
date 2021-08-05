@@ -7,7 +7,7 @@ svt=$1                  # web server type (1 = apache | 2 = nginx)
 yum install -y gcc-c++ make 
 curl -sL https://rpm.nodesource.com/setup_14.x | sudo -E bash - 
 yum install nodejs -y
-yum install perl git nano wget -y
+yum install perl git nano wget htop -y
 # curl -o- -L https://yarnpkg.com/install.sh | bash
 npm install -g auto-install pm2 http-server
 
