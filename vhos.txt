@@ -1,7 +1,14 @@
 
-<VirtualHost *:80>
-  ServerName  ipserver
-  ProxyRequests On
-  ProxyPass / http://ipserver:3003
-  ProxyPassReverse / http://ipserver:3003
+<VirtualHost *:443>
+	ProxyRequests On
+	ProxyPreserveHost On
+	ProxyPass / http://127.0.0.1:3003/ retry=1 acquire=3000 timeout=600 Keepalive=On
+	ProxyPassReverse / http://127.0.0.1:3003/
+</VirtualHost>
+
+<VirtualHost *:*>
+	ProxyRequests On
+	ProxyPreserveHost On
+	ProxyPass / http://127.0.0.1:3003/ retry=1 acquire=3000 timeout=600 Keepalive=On
+	ProxyPassReverse / http://127.0.0.1:3003/
 </VirtualHost>
