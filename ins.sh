@@ -13,6 +13,7 @@ yum install perl git nano wget htop -y
 # curl -o- -L https://yarnpkg.com/install.sh | bash
 npm install -g auto-install pm2 http-server
 npm install -g cloudflare-cli
+npm install -g nodemon
 node -v
 npm -v
 
