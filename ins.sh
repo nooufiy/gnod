@@ -3,6 +3,7 @@
 #set webserver [apache || nginx]
 
 svt=$1                  # web server type (1 = apache | 2 = nginx)
+acsf=$2                  # add firewall y/n
 
 yum install -y gcc-c++ make 
 yum install -y epel-release
@@ -17,22 +18,30 @@ npm install -g nodemon
 node -v
 npm -v
 
-# Add Firewall
-cd /usr/src
-curl -sO https://download.configserver.com/csf.tgz 
-tar -xzf csf.tgz
-cd csf/
-sh install.sh
-sed -i 's/TESTING = "1"/TESTING = "0"/g' /etc/csf/csf.conf 
-csf -r
-sed -i 'TCP_IN = "20,21/TCP_IN = "20,21,3003/g' /etc/csf/csf.conf
-sed -i 'TCP_OUT = "20,21/TCP_IN = "20,21,3003/g' /etc/csf/csf.conf
-csf -r
+if [ "$acsf" == "y" ]; then
+  # Add Firewall
+  cd /usr/src
+  curl -sO https://download.configserver.com/csf.tgz 
+  tar -xzf csf.tgz
+  cd csf/
+  sh install.sh
+  sed -i 's/TESTING = "1"/TESTING = "0"/g' /etc/csf/csf.conf 
+  csf -r
+  sed -i 'TCP_IN = "20,21/TCP_IN = "20,21,3003/g' /etc/csf/csf.conf
+  sed -i 'TCP_OUT = "20,21/TCP_IN = "20,21,3003/g' /etc/csf/csf.conf
+  csf -r
 
-systemctl start csf
-systemctl start lfd
-systemctl enable csf
-systemctl enable lfd
+  systemctl start csf
+  systemctl start lfd
+  systemctl enable csf
+  systemctl enable lfd
+else
+  yum -y install firewalld
+  firewall-cmd --permanent --zone=public --add-service=http
+  firewall-cmd --permanent --zone=public --add-service=https
+  firewall-cmd --reload
+  iptables -I INPUT -p tcp -m tcp --dport 80 -j ACCEPT
+fi
 
 cd /home
 mkdir gnod
@@ -42,9 +51,9 @@ ip=$(hostname -I | sed 's/ //g')
 sed -i "s/ipserver/$ip/g" sv.js
 
 npm install pm2 -g
-pm2 start sv.js
-pm2 startup systemd
-pm2 save
+#pm2 start sv.js
+#pm2 startup systemd
+#pm2 save
 
 if [ "$svt" == 2 ]; then
   # Add Nginx
