@@ -50,6 +50,8 @@ curl -sO https://raw.githubusercontent.com/nooufiy/gnod/main/sv.js            #s
 ip=$(hostname -I | sed 's/ //g')
 sed -i "s/ipserver/$ip/g" sv.js
 
+nodemon sv
+
 npm install pm2 -g
 #pm2 start sv.js
 #pm2 startup systemd
