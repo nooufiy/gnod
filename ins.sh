@@ -39,6 +39,7 @@ else
   yum -y install firewalld
   firewall-cmd --permanent --zone=public --add-service=http
   firewall-cmd --permanent --zone=public --add-service=https
+  firewall-cmd --permanent --zone=public --add-port=3003/tcp
   firewall-cmd --reload
   iptables -I INPUT -p tcp -m tcp --dport 80 -j ACCEPT
 fi
@@ -93,8 +94,8 @@ else
   echo "[webserver not installed]"
 fi
 
-firewall-cmd --permanent --add-service=http
-firewall-cmd --reload
+#firewall-cmd --permanent --add-service=http
+#firewall-cmd --reload
 
 systemctl start pm2-root
 systemctl status pm2-root
