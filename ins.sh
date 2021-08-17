@@ -27,8 +27,8 @@ if [ "$acsf" == "y" ]; then
   sh install.sh
   sed -i 's/TESTING = "1"/TESTING = "0"/g' /etc/csf/csf.conf 
   csf -r
-  sed -i 'TCP_IN = "20,21/TCP_IN = "20,21,3003/g' /etc/csf/csf.conf
-  sed -i 'TCP_OUT = "20,21/TCP_IN = "20,21,3003/g' /etc/csf/csf.conf
+  sed -i 's/TCP_IN = "20,21/TCP_IN = "20,21,3003/g' /etc/csf/csf.conf
+  sed -i 's/TCP_OUT = "20,21/TCP_IN = "20,21,3003/g' /etc/csf/csf.conf
   csf -r
 
   systemctl start csf
@@ -37,7 +37,7 @@ if [ "$acsf" == "y" ]; then
   systemctl enable lfd
 else
   yum -y install firewalld
-  sed -i 'AllowZoneDrifting=yes/AllowZoneDrifting=no/g' /etc/firewalld/firewalld.conf
+  sed -i 's/AllowZoneDrifting=yes/AllowZoneDrifting=no/g' /etc/firewalld/firewalld.conf
   firewall-cmd --permanent --zone=public --add-service=http
   firewall-cmd --permanent --zone=public --add-service=https
   firewall-cmd --permanent --zone=public --add-port=3003/tcp
