@@ -6,7 +6,7 @@
 	ProxyPassReverse / http://127.0.0.1:3003/
 </VirtualHost>
 
-<VirtualHost *:*>
+<VirtualHost *:80>
 	ProxyRequests On
 	ProxyPreserveHost On
 	ProxyPass / http://127.0.0.1:3003/ retry=1 acquire=3000 timeout=600 Keepalive=On
