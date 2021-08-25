@@ -3,7 +3,7 @@
 #set webserver [apache || nginx]
 
 svt=$1                  # web server type (1 = apache | 2 = nginx)
-acsf=$2                  # add firewall y/n
+acsf=$2                 # add firewall y/n
 
 yum install -y gcc-c++ make 
 yum install -y epel-release
@@ -18,7 +18,7 @@ npm install -g nodemon
 node -v
 npm -v
 
-if [ "$acsf" == "y" ]; then
+if [ "$acsf" === "y" ]; then
   # Add Firewall
   cd /usr/src
   curl -sO https://download.configserver.com/csf.tgz 
@@ -60,7 +60,7 @@ npm install pm2 -g
 #pm2 startup systemd
 #pm2 save
 
-if [ "$svt" == 2 ]; then
+if [ "$svt" === 2 ]; then
   # Add Nginx
   yum install epel-release -y
   yum install nginx -y
@@ -76,7 +76,7 @@ if [ "$svt" == 2 ]; then
   setsebool -P httpd_can_network_relay on
   setsebool -P httpd_can_network_connect on
   
-elif [ "$svt" == 1 ]; then
+elif [ "$svt" === 1 ]; then
   # Add Apache
   yum -y install httpd
   
@@ -99,8 +99,8 @@ fi
 #firewall-cmd --permanent --add-service=http
 #firewall-cmd --reload
 
-systemctl start pm2-root
-systemctl status pm2-root
+#systemctl start pm2-root
+#systemctl status pm2-root
 
 
 echo "[Done]"
