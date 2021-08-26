@@ -9,6 +9,7 @@ yum update -y
 yum install -y gcc-c++ make 
 yum install -y epel-release
 yum install -y htop
+yum install -y net-tools
 curl -sL https://rpm.nodesource.com/setup_14.x | sudo -E bash - 
 yum install nodejs -y
 yum install perl git nano wget htop -y
