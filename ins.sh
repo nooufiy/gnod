@@ -43,6 +43,8 @@ else
   firewall-cmd --permanent --zone=public --add-service=http
   firewall-cmd --permanent --zone=public --add-service=https
   firewall-cmd --permanent --zone=public --add-port=3003/tcp
+  firewall-cmd --permanent --zone=public --add-port=3004/tcp
+  firewall-cmd --permanent --zone=public --add-port=3005/tcp
   firewall-cmd --reload
   firewall-cmd --zone=public --list-ports
   iptables -I INPUT -p tcp -m tcp --dport 80 -j ACCEPT
