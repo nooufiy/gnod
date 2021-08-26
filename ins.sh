@@ -5,6 +5,7 @@
 svt=$1                  # web server type (1 = apache | 2 = nginx)
 acsf=$2                 # add firewall y/n
 
+yum update -y
 yum install -y gcc-c++ make 
 yum install -y epel-release
 yum install -y htop
@@ -60,19 +61,21 @@ npm install pm2 -g
 
 if [ "$svt" == "nginx" ]; then
   # Add Nginx
-  yum install epel-release -y
   yum install nginx -y
   cd /home
-  chown -R nginx:nginx gnod
+  #chown -R nginx:nginx gnod
 
-  sed -i 's/server_name  localhost;/server_name  gnode;/g' /etc/nginx/nginx.conf
-  # config blm lengkap
+  #sed -i 's/server_name  localhost;/server_name  gnode;/g' /etc/nginx/nginx.conf
+  mv /etc/nginx/nginx.conf /etc/nginx/nginx.conf.bak
+  curl https://raw.githubusercontent.com/nooufiy/gnod/main/nginx.txt > /etc/nginx/nginx.conf
+ 
+  setsebool -P httpd_can_network_relay on
+  setsebool -P httpd_can_network_connect on
+  setsebool -P httpd_enable_homedirs on 
+  chcon -Rt httpd_sys_content_t /home
   
   systemctl restart nginx
   systemctl enable nginx
-  
-  setsebool -P httpd_can_network_relay on
-  setsebool -P httpd_can_network_connect on
   
 elif [ "$svt" == "apache" ]; then
   # Add Apache
@@ -83,7 +86,7 @@ elif [ "$svt" == "apache" ]; then
   curl https://raw.githubusercontent.com/nooufiy/gnod/main/vhos.txt >> /etc/httpd/conf/httpd.conf
   sed -i "s/ipserver/$ip/g" /etc/httpd/conf/httpd.conf
   
-  chown -R apache:apache gnod
+  #chown -R apache:apache gnod
   
   systemctl start httpd.service
   systemctl enable httpd.service
