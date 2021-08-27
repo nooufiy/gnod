@@ -59,6 +59,9 @@ sed -i "s/ipserver/$ip/g" sv.js
 
 npm install pm2 -g
 #pm2 start sv.js
+#pm2 start index.js --name "gnod-01" -- 3003 gnod-1
+#pm2 start index.js --name "gnod-02" -- 3004 gnod-2
+#pm2 start index.js --name "gnod-03" -- 3005 gnod-3
 #pm2 startup systemd
 #pm2 save
 
