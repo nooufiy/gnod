@@ -68,6 +68,8 @@ npm install pm2 -g
 #pm2 save
 
 #rsync -avzh --progress root@xxx:/home/{gnod,jal,bekap.sh} /home
+#rsync -avzh --progress root@104.248.193.237:/home/* /home
+
 
 if [ "$svt" == "nginx" ]; then
   # Add Nginx
