@@ -5,6 +5,7 @@
 cd /home/gnod
 
 yum -y install firewalld
+systemctl start firewalld
 sed -i 's/AllowZoneDrifting=yes/AllowZoneDrifting=no/g' /etc/firewalld/firewalld.conf
 firewall-cmd --permanent --zone=public --add-service=http
 firewall-cmd --permanent --zone=public --add-service=https
