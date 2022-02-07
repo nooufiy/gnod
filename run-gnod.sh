@@ -2,6 +2,7 @@
 
 ip=$1
 
+curl https://raw.githubusercontent.com/nooufiy/gnod/main/ins.sh | bash -s nginx n
 rsync -avzh --progress root@"$ip":/home/* /home
 
 cd /home/gnod
