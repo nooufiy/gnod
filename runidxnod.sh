@@ -2,6 +2,8 @@
 
 #rsync -avzh --progress root@104.248.193.237:/home/* /home
 
+cd /home/gnod
+
 yum -y install firewalld
 sed -i 's/AllowZoneDrifting=yes/AllowZoneDrifting=no/g' /etc/firewalld/firewalld.conf
 firewall-cmd --permanent --zone=public --add-service=http
