@@ -1,6 +1,8 @@
 #!/bin/bash
 
-#rsync -avzh --progress root@104.248.193.237:/home/* /home
+ip=$1
+
+rsync -avzh --progress root@"$ip":/home/* /home
 
 cd /home/gnod
 
